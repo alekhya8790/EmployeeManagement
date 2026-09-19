@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   isEditMode: boolean = false;
   editingId: number | null = null;
 
-  apiUrl = 'https://localhost:7107/api/Employees';
+  apiUrl = 'https://employee-management-api-production-ea40.up.railway.app/api/Employees';
 
   newEmp: any = {
     employeeCode: '',
