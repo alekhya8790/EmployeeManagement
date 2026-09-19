@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -11,8 +11,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   styleUrl: './app.css'
 })
 export class AppComponent implements OnInit {
-  employees: any[] = [];
-  filteredEmployees: any[] = [];
+  employees = signal<any[]>([]);
+  filteredEmployees = signal<any[]>([]);
   searchTerm: string = '';
   isEditMode: boolean = false;
   editingId: number | null = null;
@@ -33,10 +33,7 @@ export class AppComponent implements OnInit {
     isActive: true
   };
 
-  constructor(
-    private http: HttpClient,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.getEmployees();
@@ -45,9 +42,8 @@ export class AppComponent implements OnInit {
   getEmployees() {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: (data) => {
-        this.employees = data;
+        this.employees.set(data);
         this.filterEmployees();
-        this.changeDetector.detectChanges();
       },
       error: (err) => console.error('API Error:', err)
     });
@@ -55,15 +51,15 @@ export class AppComponent implements OnInit {
 
   filterEmployees() {
     if (!this.searchTerm || this.searchTerm.trim() === '') {
-      this.filteredEmployees = [...this.employees];
+      this.filteredEmployees.set([...this.employees()]);
     } else {
       const term = this.searchTerm.toLowerCase().trim();
-      this.filteredEmployees = this.employees.filter(emp =>
+      this.filteredEmployees.set(this.employees().filter(emp =>
         (emp.firstName && emp.firstName.toLowerCase().includes(term)) ||
         (emp.lastName && emp.lastName.toLowerCase().includes(term)) ||
         (emp.employeeCode && emp.employeeCode.toLowerCase().includes(term)) ||
         (emp.designation && emp.designation.toLowerCase().includes(term))
-      );
+      ));
     }
   }
 

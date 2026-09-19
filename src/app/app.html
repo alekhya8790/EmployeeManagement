@@ -7,7 +7,7 @@
       <p class="mb-0 opacity-75 small">Manage your team members and details</p>
     </div>
     <span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-semibold fs-6">
-      Total: {{ filteredEmployees.length }}
+      Total: {{ filteredEmployees().length }}
     </span>
   </div>
 
@@ -79,7 +79,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let emp of filteredEmployees">
+          <tr *ngFor="let emp of filteredEmployees()">
             <td class="ps-4 fw-bold text-primary">{{ emp.employeeCode }}</td>
             <td class="fw-semibold">{{ emp.firstName }} {{ emp.lastName }}</td>
             <td class="text-secondary">{{ emp.email }}</td>
@@ -90,7 +90,7 @@
               <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(emp)">Delete</button>
             </td>
           </tr>
-          <tr *ngIf="filteredEmployees.length === 0">
+          <tr *ngIf="filteredEmployees().length === 0">
             <td colspan="6" class="text-center py-5 text-muted">
               No employees found matching your search.
             </td>
