@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -33,7 +33,10 @@ export class AppComponent implements OnInit {
     isActive: true
   };
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.getEmployees();
@@ -44,6 +47,7 @@ export class AppComponent implements OnInit {
       next: (data) => {
         this.employees = data;
         this.filterEmployees();
+        this.changeDetector.detectChanges();
       },
       error: (err) => console.error('API Error:', err)
     });
