@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: employee-management-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/Employees
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production

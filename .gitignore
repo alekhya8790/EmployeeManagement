@@ -52,3 +52,6 @@ Thumbs.db
 *.sln.docstates
 appsettings.Local.json
 appsettings.*.Local.json
+**/*.db
+**/*.db-shm
+**/*.db-wal
