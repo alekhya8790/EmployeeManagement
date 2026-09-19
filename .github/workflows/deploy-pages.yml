@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build Angular app
-        run: npx ng build --configuration development --base-href /EmployeeManagement/
+        run: npx ng build --configuration development --output-hashing all --base-href /EmployeeManagement/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
