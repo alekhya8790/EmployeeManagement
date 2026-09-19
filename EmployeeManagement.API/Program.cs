@@ -1,5 +1,6 @@
 
 using EmployeeManagement.API.Data;
+using EmployeeManagement.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.API
@@ -25,7 +26,42 @@ namespace EmployeeManagement.API
 
             using (var scope = app.Services.CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<EmployeeDbContext>().Database.EnsureCreated();
+                var db = scope.ServiceProvider.GetRequiredService<EmployeeDbContext>();
+                db.Database.EnsureCreated();
+
+                if (!db.Employees.Any())
+                {
+                    db.Employees.AddRange(
+                        new Employee
+                        {
+                            EmployeeCode = "EMP-001",
+                            FirstName = "Ananya",
+                            LastName = "Sharma",
+                            Email = "ananya.sharma@example.com",
+                            Phone = "555-0101",
+                            Gender = "Female",
+                            Designation = "Software Engineer",
+                            DepartmentId = 1,
+                            Salary = 72000,
+                            DateOfJoining = new DateTime(2024, 4, 15),
+                            IsActive = true
+                        },
+                        new Employee
+                        {
+                            EmployeeCode = "EMP-002",
+                            FirstName = "Rahul",
+                            LastName = "Patel",
+                            Email = "rahul.patel@example.com",
+                            Phone = "555-0102",
+                            Gender = "Male",
+                            Designation = "Product Manager",
+                            DepartmentId = 2,
+                            Salary = 88000,
+                            DateOfJoining = new DateTime(2023, 9, 1),
+                            IsActive = true
+                        });
+                    db.SaveChanges();
+                }
             }
 
             if (app.Environment.IsDevelopment())
