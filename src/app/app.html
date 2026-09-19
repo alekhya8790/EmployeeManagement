@@ -1,0 +1,103 @@
+<div class="container my-4">
+  
+  <!-- Header -->
+  <div class="dashboard-header d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h3 class="fw-bold mb-1">Employee Directory</h3>
+      <p class="mb-0 opacity-75 small">Manage your team members and details</p>
+    </div>
+    <span class="badge bg-white text-dark px-3 py-2 rounded-pill fw-semibold fs-6">
+      Total: {{ filteredEmployees.length }}
+    </span>
+  </div>
+
+  <!-- Form Section -->
+  <div class="card form-card p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="fw-bold text-uppercase text-muted mb-0 small">
+        {{ isEditMode ? 'Edit Employee Details' : 'Add New Member' }}
+      </h6>
+      <button *ngIf="isEditMode" class="btn btn-sm btn-outline-secondary" (click)="resetForm()">Cancel Edit</button>
+    </div>
+
+    <form (ngSubmit)="saveEmployee()" #empForm="ngForm" autocomplete="off">
+      <div class="row g-3">
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Emp Code</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="newEmp.employeeCode" name="employeeCode" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">First Name</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="newEmp.firstName" name="firstName" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Last Name</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="newEmp.lastName" name="lastName" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Email</label>
+          <input type="email" class="form-control" placeholder="" [(ngModel)]="newEmp.email" name="email" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Phone</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="newEmp.phone" name="phone" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Designation</label>
+          <input type="text" class="form-control" placeholder="" [(ngModel)]="newEmp.designation" name="designation" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label small fw-medium text-secondary">Salary</label>
+          <input type="number" class="form-control" placeholder="" [(ngModel)]="newEmp.salary" name="salary" required>
+        </div>
+        <div class="col-md-3 d-flex align-items-end">
+          <button type="submit" class="btn btn-custom w-100" [disabled]="!empForm.form.valid">
+            {{ isEditMode ? 'Update Employee' : '+ Save Employee' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="mb-3">
+    <input type="text" class="form-control shadow-sm" placeholder="🔍 Search by name, code, or designation..." [(ngModel)]="searchTerm" (input)="filterEmployees()">
+  </div>
+
+  <!-- Table Section -->
+  <div class="card table-card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th class="ps-4">Code</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Designation</th>
+            <th>Salary</th>
+            <th class="pe-4 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of filteredEmployees">
+            <td class="ps-4 fw-bold text-primary">{{ emp.employeeCode }}</td>
+            <td class="fw-semibold">{{ emp.firstName }} {{ emp.lastName }}</td>
+            <td class="text-secondary">{{ emp.email }}</td>
+            <td><span class="badge-designation">{{ emp.designation }}</span></td>
+            <td class="fw-bold text-dark">₹{{ emp.salary }}</td>
+            <td class="pe-4 text-center">
+              <button class="btn btn-sm btn-outline-warning me-2" (click)="editEmployee(emp)">Edit</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteEmployee(emp)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredEmployees.length === 0">
+            <td colspan="6" class="text-center py-5 text-muted">
+              No employees found matching your search.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

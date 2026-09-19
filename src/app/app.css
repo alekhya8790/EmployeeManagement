@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f4f6f9;
+  color: #333;
+}
+
+/* Page Header */
+.dashboard-header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Card */
+.form-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+}
+
+.form-control, .form-select {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-control:focus {
+  border-color: #2a5298;
+  box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.15);
+}
+
+/* Buttons */
+.btn-custom {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.6rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-custom:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(56, 239, 125, 0.3);
+  color: white;
+}
+
+.btn-custom:disabled {
+  background: #cbd5e1;
+  border: none;
+}
+
+/* Table Styling */
+.table-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.table th {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem;
+}
+
+.table td {
+  padding: 0.9rem 1rem;
+  font-size: 0.9rem;
+}
+
+.badge-designation {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 600;
+  padding: 0.4em 0.8em;
+  border-radius: 6px;
+}
